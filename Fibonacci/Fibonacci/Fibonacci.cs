@@ -16,11 +16,7 @@ namespace Fibonacci
 
         public int CalculateFibonacci(int n, int i, int previous, int current)
         {
-            if (n < 2)
-                return n;
-            if(i!=0)
-                CalculateFibonacci(n, i--, current, previous + current);
-            return current;
+            return 0;
         }
     }
 }
