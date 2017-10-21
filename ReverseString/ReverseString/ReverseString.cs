@@ -9,12 +9,16 @@ namespace ReverseString
         [TestMethod]
         public void TestStringReversal()
         {
-            Assert.AreEqual("yppah", Reverse("happy",""));
+            Assert.AreEqual("pots", Reverse("stop",""));
         }
 
         public string Reverse(string initialString, string newString)
         {
-            return "";
+            if (initialString.Length == 0)
+                return newString;
+            newString = newString + initialString[initialString.Length-1];
+            initialString = initialString.Remove(initialString.Length - 1);
+            return Reverse(initialString, newString);
         }
     }
 }
