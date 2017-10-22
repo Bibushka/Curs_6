@@ -12,21 +12,26 @@ namespace Triangle
             CollectionAssert.AreEqual(new int[] { 1, 4, 6, 4, 1 }, GenerateTriangle(5));
         }
 
-        public Array GenerateTriangle(int n)
+        public int[] GenerateTriangle(int n)
         {
             return GetTriangleLine(n, 2, new int[] { 1, 1});
         }
 
-        public Array GetTriangleLine(int n, int i, int[] line)
+        public int[] GetTriangleLine(int n, int i, int[] line)
         {
             if (i == n)
                 return line;
+            return GetTriangleLine(n, i + 1, CreateLine(i, line));
+        }
+
+        public int[] CreateLine(int i, int[] line)
+        {
             int[] newLine = new int[line.Length + 1];
             newLine[0] = 1;
             newLine[newLine.Length - 1] = 1;
             for (int a = 1; a < line.Length; a++)
                 newLine[a] = line[a - 1] + line[a];
-            return GetTriangleLine(n, i + 1, newLine);
+            return newLine;
         }
     }
 }
