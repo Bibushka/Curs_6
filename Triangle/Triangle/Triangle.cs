@@ -19,7 +19,14 @@ namespace Triangle
 
         public Array GetTriangleLine(int n, int i, int[] line)
         {
-            return new int[] { 0 };
+            if (i == n)
+                return line;
+            int[] newLine = new int[line.Length + 1];
+            newLine[0] = 1;
+            newLine[newLine.Length - 1] = 1;
+            for (int a = 1; a < line.Length; a++)
+                newLine[a] = line[a - 1] + line[a];
+            return GetTriangleLine(n, i + 1, newLine);
         }
     }
 }
