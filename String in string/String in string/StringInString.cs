@@ -24,11 +24,9 @@ namespace StringInString
         {
             if (initialString.Length == 0)
                 return newString;
-            if (initialString[0] == CharToChange)
-                return ChangeChar(initialString.Substring(1), stringToBeInserted, 
-                    CharToChange, newString + stringToBeInserted);
+            var toAdd = initialString[0] == CharToChange ? stringToBeInserted : initialString[0].ToString();
             return ChangeChar(initialString.Substring(1), stringToBeInserted, 
-                CharToChange, newString + initialString[0]);
+                CharToChange, newString + toAdd);
         }
     }
 }
