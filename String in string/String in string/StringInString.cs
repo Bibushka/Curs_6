@@ -9,23 +9,26 @@ namespace StringInString
         [TestMethod]
         public void IsStringCorrectlyComposed()
         {
-            Assert.AreEqual("dosomestuff", PrepareForInsertion("doestuff", "some", 2));
+            Assert.AreEqual("rdadapsda", PrepareForInsertion("raapsa", "da", 'a'));
         }
 
         public string PrepareForInsertion(string initialString, string 
-            stringToBeInserted, int position)
+            stringToBeInserted, char charToChange)
         {
-            return InsertString(initialString.Substring(0, position),
-                stringToBeInserted + initialString.Substring(position + 1));
+            string newString = string.Empty;
+            return ChangeChar(initialString, stringToBeInserted, charToChange, newString);
         }
 
-        public string InsertString(string initialString, string stringToBeInserted)
+        public string ChangeChar(string initialString, string stringToBeInserted, 
+            char CharToChange, string newString)
         {
-            if (stringToBeInserted.Length == 0)
-                return initialString;
-            initialString = initialString + stringToBeInserted[0];
-            stringToBeInserted = stringToBeInserted.Substring(1);
-            return InsertString(initialString, stringToBeInserted);
+            if (initialString.Length == 0)
+                return newString;
+            if (initialString[0] == CharToChange)
+                return ChangeChar(initialString.Substring(1), stringToBeInserted, 
+                    CharToChange, newString + stringToBeInserted);
+            return ChangeChar(initialString.Substring(1), stringToBeInserted, 
+                CharToChange, newString + initialString[0]);
         }
     }
 }
