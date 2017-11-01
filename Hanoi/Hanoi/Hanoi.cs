@@ -18,12 +18,17 @@ namespace Hanoi
             string a = "A";
             string b = "B";
             string c = "C";
-            return GetMoves(n, moves, a, c, b);
+            return GetMoves(n, moves, a, b, c);
         }
 
         public string GetMoves(int n, string moves, string a, string b, string c)
         {
-            return "";
+            if (n == 1)
+                return GetMoves(n, moves + a + b + " ", a, b, c);
+            GetMoves(n - 1, moves + a + b + " ", a, c, b);
+            GetMoves(n - 1, moves + a + b + " ", c, b, a);
+            GetMoves(n - 1, moves + a + b + " ", b, c, a);
+            return moves;
         }
     }
 }
