@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Calculator
@@ -9,35 +12,30 @@ namespace Calculator
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.AreEqual(65, GetResult("+ 7 58"));
+            Assert.AreEqual(58.7, GetResult("58.7"));
         }
 
-        public int[] GetResult(string calculatorScreen)
+        public float GetResult(string calculatorScreen)
         {
             string[] calculationString = calculatorScreen.Split(' ');
-            string[][] splitString = new string[2][];
-            splitString[0] = new string[calculationString.Length/2];
-            splitString[1] = new string[calculationString.Length / 2 + 1];
-            splitString = Split(calculationString, splitString, 0, 0);
-            string[] simbols = splitString[0];
-            int[] numbers = Array.ConvertAll(splitString[1], int.Parse);
-            return numbers;
+            float result = 0;
+            return Split(calculationString, result);
         }
 
-        public string[][] Split(string[] calculationString, string[][] splitString, int i, int j)
+        public float Split(string[] calculationString, float result)
         {
-            string[] newString = new string[calculationString.Length-1];
             if (calculationString.Length == 0)
-                return splitString;
-            if ("+-/*".Contains(calculationString[calculationString.Length - 1]))
-            {
-                splitString[0][i] = calculationString[calculationString.Length - 1];
-                Array.Copy(calculationString, newString, newString.Length);
-                return Split(newString, splitString, i + 1, j);
-            }
-            splitString[0][j] = calculationString[calculationString.Length - 1];
-            Array.Copy(calculationString, newString, newString.Length);
-            return Split(newString, splitString, i, j + 1);
+                return result;
+            return Split(ResizeString(calculationString, calculationString.Length-1), 
+                result + float.Parse(calculationString[calculationString.Length - 1], System.Globalization.CultureInfo.InvariantCulture));
+        }
+
+        public string[] ResizeString(string[] yourString, int lenght)
+        {
+            Array.Reverse(yourString);
+            Array.Resize(ref yourString, lenght);
+            Array.Reverse(yourString);
+            return yourString;
         }
     }
 }
